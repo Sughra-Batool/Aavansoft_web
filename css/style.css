@@ -771,3 +771,197 @@ details p{
     outline:3px solid #F41A1A;
     outline-offset:4px
 }
+
+
+/* ══════════════════════════════════════════════════
+   17. SECTION 9 — INVESTOR ENQUIRY
+   ══════════════════════════════════════════════════ */
+
+.section9 {
+    padding: 4rem 2rem;
+    margin-bottom: 4rem;
+}
+
+.contact-panel {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 3.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.contact-grid .contact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+/* ── Left Side: Typography & Links ───────────────── */
+
+.contact-left > .eyebrow {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #666;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.contact-left > h2 {
+    font-family: 'Bree Serif', sans-serif;
+    font-size: 3rem;
+    line-height: 1.15;
+    color: #0b0c10;
+    margin-bottom: 1.5rem;
+}
+
+.contact-left > .contact-desc {
+    font-size: 1.1rem;
+    color: #525A65;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+}
+
+.contact-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.contact-links > a {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #0b0c10;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-decoration-color: #0b0c10;
+    text-underline-offset: 6px;
+    margin-left: 0;
+    padding-right: 0;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.contact-links > a:hover {
+    color: #ffd000;
+    text-decoration-color: #ffd000;
+}
+
+/* ── Right Side: Form ────────────────────────────── */
+
+.contact-right {
+    text-align: center; padding: 40px 20px;
+}
+
+.contact-grid .contact-right>a {
+    text-decoration: none; 
+    display: inline-block;
+    background-color: #1f2833;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+.contact-right a:hover {
+    background-color: #ffd000;
+    color: #0b0c10;
+}
+
+.contact-right .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.form-grid .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-grid .field.full {
+    grid-column: 1 / -1;
+}
+
+.form-grid label {
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #0b0c10;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+    padding: 0.85rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1rem;
+    color: #0b0c10;
+    background: #fff;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus {
+    outline: none;
+    border-color: #ffd000;
+    box-shadow: 0 0 0 3px rgba(255, 208, 0, 0.2);
+}
+
+.form-grid textarea {
+    resize: vertical;
+    min-height: 130px;
+}
+
+.form-grid .btn {
+    display: inline-block;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    font-family: 'Bree Serif', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+    width: 100%;
+}
+
+.form-grid .btn-primary {
+    background: #e8c820;
+    color: #0b0c10;
+}
+
+.form-grid .btn-primary:hover {
+    background: #ffd000;
+    color: #0b0c10;
+}
+
+.form-note {
+    font-size: 0.8rem;
+    color: #888;
+    line-height: 1.5;
+    margin-top: 1rem;
+}
+
+.form-status {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: #1f2833;
+    margin-top: 0.5rem;
+}
+
+/* Add this to your style.css under Section 8 */
+.project-empty {
+    grid-column: 1 / -1;
+    padding: 3rem;
+    text-align: center;
+    background: #f7f7f7;
+    border: 2px dashed #e5e5e5;
+    border-radius: 8px;
+    color: #525A65;
+    font-size: 1.1rem;
+}
