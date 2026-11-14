@@ -865,8 +865,10 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   color: var(--white);
 }
 .footer-top>div>.footer-brand>img {
-    width: 50px;
+    width: clamp(35px, 3.5vw, 50px);
 }
+
+
 .footer-brand:hover { transform: translateY(-2px); }
 .footer-tagline {
   font-family: var(--body);
@@ -884,6 +886,13 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   font-size: .5rem;
   letter-spacing: .14em;
   text-transform: uppercase;
+}
+
+@media(max-width: 768px) {
+  .footer-links {
+    gap: .7rem 0.6rem;
+    font-size: 0.4rem;
+  }
 }
 .footer-links a {
   color: rgba(255, 255, 255, .72);
