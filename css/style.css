@@ -437,7 +437,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1.6fr) minmax(280px, .8fr);
-  gap: clamp(1.5rem, 4vw, 3.5rem);
+  gap: clamp(1.5rem, 3.5vw, 2.5rem);
   align-items: center;
   z-index: 1;
 }
