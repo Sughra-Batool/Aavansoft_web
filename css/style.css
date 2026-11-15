@@ -2204,6 +2204,24 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
   max-width: 40ch;
 }
 
+
+
+.contact-form__error {
+  color: #c00;
+  font-size: .8rem;
+  line-height: 1.4;
+  margin-top: 6px;
+}
+.contact-form__group input[aria-invalid="true"],
+.contact-form__group textarea[aria-invalid="true"] {
+  border-color: #c00;
+  box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.08);
+}
+.contact-form__note:not(:empty) {
+  min-height: 1.2em;
+  margin-top: 4px;
+}
+
 /* ==========================================================================
    RESPONSIVE
    ========================================================================== */

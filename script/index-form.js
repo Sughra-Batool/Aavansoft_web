@@ -5,6 +5,8 @@
    - Covers the page below the sticky header, page is scroll-locked
    - Header nav links stay functional: they close the form and scroll
    - Shows a full-page success state on submit
+   - Shows field-level errors returned by the Worker (field key)
+   - Shows form-level errors for 4xx / 5xx / network failures
    ========================================================================== */
 (function () {
   'use strict';
@@ -25,6 +27,9 @@
 
   var lastTrigger = null;
 
+  /* ======================================================================
+     Mobile menu helper
+     ====================================================================== */
   function closeMobileMenu() {
     if (!nav || !nav.classList.contains('is-open')) return;
     var toggle = document.querySelector('.menu-toggle');
@@ -40,6 +45,9 @@
            (success && success.classList.contains('is-open'));
   }
 
+  /* ======================================================================
+     Focus trap
+     ====================================================================== */
   function trapFocus(container) {
     container.addEventListener('keydown', function (e) {
       if (e.key !== 'Tab') return;
@@ -55,6 +63,9 @@
     });
   }
 
+  /* ======================================================================
+     Open / close overlay
+     ====================================================================== */
   function openOverlay(trigger) {
     closeMobileMenu();
     lastTrigger = trigger || null;
@@ -65,6 +76,8 @@
     body.classList.add('cf-locked');
     overlay.classList.add('is-open');
     overlay.setAttribute('aria-hidden', 'false');
+
+    clearErrors();
 
     var focusTarget =
       overlay.querySelector('input:not([tabindex="-1"]), textarea, select') ||
@@ -90,6 +103,43 @@
     lastTrigger = null;
   }
 
+  /* ======================================================================
+     Field-level error display
+     ====================================================================== */
+  function clearErrors() {
+    if (!form) return;
+    form.querySelectorAll('[data-field-error]').forEach(function (el) {
+      el.textContent = '';
+    });
+    form.querySelectorAll('[aria-invalid="true"]').forEach(function (el) {
+      el.removeAttribute('aria-invalid');
+    });
+    var note = document.getElementById('cfFormNote');
+    if (note) note.textContent = '';
+  }
+
+  function showFieldError(fieldName, message) {
+    if (!form) return false;
+    var input = form.querySelector('[name="' + fieldName + '"]');
+    if (!input) return false;
+
+    var errorEl = input.parentElement.querySelector('[data-field-error]');
+    if (!errorEl) {
+      errorEl = document.createElement('p');
+      errorEl.setAttribute('data-field-error', '');
+      errorEl.setAttribute('role', 'alert');
+      errorEl.className = 'contact-form__error';
+      input.parentElement.appendChild(errorEl);
+    }
+    errorEl.textContent = message;
+    input.setAttribute('aria-invalid', 'true');
+    try { input.focus({ preventScroll: false }); } catch (_) { input.focus(); }
+    return true;
+  }
+
+  /* ======================================================================
+     Submit handlers
+     ====================================================================== */
   document.querySelectorAll('[data-open-contact]').forEach(function (el) {
     el.addEventListener('click', function (e) {
       e.preventDefault();
@@ -117,6 +167,7 @@
   trapFocus(overlay);
   if (success) trapFocus(success);
 
+  /* In-page anchor links from the header should close the overlay first */
   document
     .querySelectorAll('.site-header a[href^="#"]:not([data-open-contact])')
     .forEach(function (a) {
@@ -139,6 +190,9 @@
       });
     });
 
+  /* ======================================================================
+     Submit form to Worker; return parsed JSON or throw {message, field, status}
+     ====================================================================== */
   function submitForm(formEl) {
     var action = formEl.getAttribute('action');
     if (action && action !== '#' && action !== '') {
@@ -147,19 +201,36 @@
         body: new FormData(formEl),
         headers: { Accept: 'application/json' }
       }).then(function (res) {
-        if (!res.ok) throw new Error('Request failed');
-        return res;
+        return res
+          .json()
+          .catch(function () { return {}; })
+          .then(function (data) {
+            if (!res.ok) {
+              var err = new Error(
+                data.error || 'Something went wrong. Please try again.'
+              );
+              err.field = data.field;
+              err.status = res.status;
+              throw err;
+            }
+            return data;
+          });
       });
     }
+    /* No action configured — simulate for preview environments */
     return new Promise(function (resolve) {
       window.setTimeout(resolve, 750);
     });
   }
 
+  /* ======================================================================
+     Success state
+     ====================================================================== */
   function showSuccess() {
     var submitBtn = form ? form.querySelector('[type="submit"]') : null;
     var note = document.getElementById('cfFormNote');
     if (form) form.reset();
+    clearErrors();
     if (submitBtn) {
       submitBtn.disabled = false;
       submitBtn.classList.remove('is-loading');
@@ -179,13 +250,54 @@
     }
   }
 
+  /* ======================================================================
+     Error state
+     ====================================================================== */
+  function showError(err) {
+    var note = document.getElementById('cfFormNote');
+    var submitBtn = form ? form.querySelector('[type="submit"]') : null;
+
+    var message = err && err.message
+      ? err.message
+      : 'Something went wrong. Please try again.';
+
+    /* Field-level → inline under the offending input */
+    if (err && err.field && showFieldError(err.field, message)) {
+      if (note) note.textContent = '';
+    } else if (note) {
+      /* Form-level fallback, refined by status */
+      if (err && err.status === 429) {
+        note.textContent = 'Too many attempts. Please wait a minute and try again.';
+      } else if (err && err.status >= 500) {
+        note.textContent =
+          "We couldn't save your enquiry. Please try again in a moment, or email info@aavansoft.co.uk directly.";
+      } else if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+        note.textContent =
+          'You appear to be offline. Please check your connection and try again.';
+      } else {
+        note.textContent = message;
+      }
+    }
+
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('is-loading');
+    }
+  }
+
+  /* ======================================================================
+     Form submit
+     ====================================================================== */
   if (form) {
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      clearErrors();
 
+      /* Honeypot — if filled, treat as success but silently drop */
       var honey = form.querySelector('input[name="website_url"]');
       if (honey && honey.value) { showSuccess(); return; }
 
+      /* Native HTML5 validation first (required, type=email etc.) */
       if (typeof form.reportValidity === 'function' && !form.reportValidity()) {
         return;
       }
@@ -199,16 +311,9 @@
       }
       if (note) note.textContent = 'Sending your enquiry…';
 
-      submitForm(form).then(showSuccess).catch(function () {
-        if (note) {
-          note.textContent =
-            'We could not send your enquiry. Please try again or email hello@aavansoft.co.uk.';
-        }
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.classList.remove('is-loading');
-        }
-      });
+      submitForm(form)
+        .then(showSuccess)
+        .catch(showError);
     });
   }
 })();
