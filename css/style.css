@@ -211,7 +211,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   align-items: center;
   gap: .65rem;
   font-family: var(--subtitle);
-  font-size: .68rem;
+  font-size: .72rem;
   font-weight: 400;
   letter-spacing: .12em;
   text-transform: uppercase;
@@ -366,7 +366,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .nav-links a {
   position: relative;
   font-family: var(--subtitle);
-  font-size: .55rem;
+  font-size: .6rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: #5a5a5a;
@@ -391,7 +391,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   background: var(--ink);
   color: var(--white) !important;
   padding: .72rem 1.05rem !important;
-  font-size: .6rem !important;
+  font-size: .7rem !important;
   display: inline-flex;
   align-items: center;
   gap: .45rem;
@@ -403,7 +403,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .menu-toggle {
   display: none;
   font-family: var(--subtitle);
-  font-size: .62rem;
+  font-size: .8rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   padding: .6rem .8rem;
@@ -491,7 +491,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   min-height: 52px;
   padding: .95rem 1.4rem;
   font-family: var(--subtitle);
-  font-size: .68rem;
+  font-size: .75rem;
   letter-spacing: .12em;
   text-transform: uppercase;
   border: 1px solid var(--ink);
@@ -548,7 +548,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   gap: .65rem 1.4rem;
   margin-top: 2.25rem;
   font-family: var(--subtitle);
-  font-size: .6rem;
+  font-size: .72rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--gray-500);
@@ -626,7 +626,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .toc a {
   flex: none;
   font-family: var(--subtitle);
-  font-size: .6rem;
+  font-size: .72rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   padding: .55rem .85rem;
@@ -719,7 +719,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .35rem; }
 .tags li {
   font-family: var(--subtitle);
-  font-size: .55rem;
+  font-size: .72rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   padding: .4rem .7rem;
@@ -769,7 +769,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   list-style: none;
   padding: 1.4rem 2.8rem 1.4rem 0;
   position: relative;
-  font-size: .92rem;
+  font-size: clamp(.8rem, 1.35vw, 1rem);
   line-height: 1.5;
   color: var(--ink);
   transition: padding .3s;
@@ -815,7 +815,8 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
    ========================================================================== */
 .contact-grid {
   display: grid;
-  gap: clamp(2rem, 4vw, 3.5rem);
+  grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:clamp(2rem,4vw,3.5rem);
   align-items: start;
 }
 
@@ -828,6 +829,48 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   color: var(--ink);
 }
 
+.contact-box{
+  position:relative;
+  border:1px solid var(--ink);
+  padding:clamp(1.75rem,3vw,2.5rem);
+  display:flex;
+  flex-direction:column;
+  gap:1.5rem;
+  background:var(--white);
+  overflow:hidden;
+  isolation:isolate
+}
+.contact-box::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(32,32,32,.045),transparent 60%);
+  opacity:0;
+  transition:opacity .35s;
+  pointer-events:none;
+  z-index:0
+}
+.contact-box:hover::before{opacity:1}
+.contact-box > *{position:relative;z-index:1}
+.contact-box .display{font-size:clamp(1.5rem,2.4vw,2rem);line-height:1.2}
+.contact-box p{font-family:var(--body);font-size:.9rem;color:#4a4a4a}
+.contact-details{display:grid;gap:.75rem;font-family:var(--body);font-size:.85rem;border-top:1px solid var(--line);padding-top:1.25rem}
+.contact-details div{display:flex;justify-content:space-between;gap:1rem}
+.contact-details dt{font-family:var(--subtitle);font-weight:400;letter-spacing:.14em;text-transform:uppercase;font-size:.7rem;color:var(--gray-500);padding-top:.15rem}
+.contact-details dd{margin:0;font-weight:600;color:var(--ink)}
+.contact-item{color:var(--ink);font-weight:500;font-family:var(--body);font-size:.82rem}
+.contact-item>a:hover {
+  color: var(--red);
+}
+
+.actions>.button--ghost {
+  padding-inline: clamp(1.5rem,5vw,4.3rem);
+  font-size: clamp(0.75rem, 1.35vw, 1rem);
+}
+
+.actions>.button {
+  font-size: clamp(0.75rem, 1.35vw, 1rem);
+}
 /* ==========================================================================
    FOOTER
    ========================================================================== */
@@ -848,7 +891,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .footer-top {
   display: flex;
   justify-content: space-between;
-  gap: 2.5rem;
+  gap: 3.5rem;
   padding-bottom: 2.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, .12);
   position: relative;
@@ -867,6 +910,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .footer-top>div>.footer-brand>img {
     width: clamp(35px, 3.5vw, 50px);
 }
+
 
 
 .footer-brand:hover { transform: translateY(-2px); }
@@ -891,7 +935,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 @media(max-width: 768px) {
   .footer-links {
     gap: .7rem 0.6rem;
-    font-size: 0.4rem;
+    font-size: 0.5rem;
   }
 }
 .footer-links a {
@@ -910,7 +954,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   flex-wrap: wrap;
   padding-top: 1.75rem;
   font-family: var(--subtitle);
-  font-size: .55rem;
+  font-size: .5rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, .55);
@@ -971,7 +1015,7 @@ html.js .ux-rows.in > * { opacity: 1; transform: none; }
   padding-top: 1rem;
   border-top: 1px solid var(--line);
   font-family: var(--subtitle);
-  font-size: .58rem;
+  font-size: .72rem;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--gray-500);
@@ -1047,7 +1091,7 @@ html.js .ux-rows.in > * { opacity: 1; transform: none; }
 
 .data-visual__label {
   font-family: var(--subtitle);
-  font-size: .55rem;
+  font-size: .7rem;
   letter-spacing: .22em;
   text-transform: uppercase;
   color: var(--gray-500);
@@ -1143,7 +1187,7 @@ html.js .ux-rows.in > * { opacity: 1; transform: none; }
 
 .data-visual__caption {
   font-family: var(--subtitle);
-  font-size: .62rem;
+  font-size: .75rem;
   letter-spacing: .08em;
   line-height: 1.5;
   color: var(--ink);
@@ -1206,14 +1250,14 @@ html.js .ux-rows.in > * { opacity: 1; transform: none; }
 
 .data-card__num {
   font-family: var(--subtitle);
-  font-size: .72rem;
+  font-size: .8rem;
   letter-spacing: .16em;
   color: var(--red);
   line-height: 1;
 }
 .data-card__title {
   font-family: var(--subtitle);
-  font-size: clamp(.86rem, 1.35vw, 1rem);
+  font-size: clamp(.9rem, 1.35vw, 1rem);
   color: var(--ink);
   line-height: 1.45;
   letter-spacing: .005em;
@@ -1295,7 +1339,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
 .ux-label { display: flex; align-items: baseline; gap: .9rem; }
 .ux-index {
   font-family: var(--subtitle);
-  font-size: .58rem;
+  font-size: .72rem;
   letter-spacing: .18em;
   color: var(--red);
   line-height: 1;
@@ -1366,7 +1410,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
 /* ---- Caption (unchanged styling) ---- */
 .tech-tower__caption {
   font-family: var(--subtitle);
-  font-size: .55rem;
+  font-size: .7rem;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--gray-500);
@@ -1406,7 +1450,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
   background: var(--gray-100);
   color: var(--gray-500);
   font-family: var(--subtitle);
-  font-size: .55rem;
+  font-size: .7rem;
   letter-spacing: .12em;
   opacity: 0;
   transform: translateX(-16px);
@@ -1451,7 +1495,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
   text-overflow: ellipsis;
   white-space: nowrap;
   letter-spacing: .08em;
-  font-size: 0.7rem;
+  font-size: .8rem;
 }
 
 /* Dot */
@@ -1499,7 +1543,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
   display: flex;
   justify-content: space-between;
   font-family: var(--subtitle);
-  font-size: .52rem;
+  font-size: .7rem;
   letter-spacing: .16em;
   text-transform: uppercase;
   color: var(--gray-500);
@@ -1577,7 +1621,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
 }
 .tech-tags li {
   font-family: var(--body);
-  font-size: .74rem;
+  font-size: .8rem;
   line-height: 1.2;
   color: #3c3c3c;
   background: var(--white);
@@ -1642,7 +1686,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
 }
 .support-idx {
   font-family: var(--subtitle);
-  font-size: .58rem;
+  font-size: .72rem;
   letter-spacing: .16em;
   color: var(--red);
   border: 1px solid rgba(244, 26, 26, .32);
@@ -1652,7 +1696,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
 }
 .support-tab h3 {
   font-family: var(--subtitle);
-  font-size: .78rem;
+  font-size: .85rem;
   line-height: 1.35;
   color: var(--ink);
   letter-spacing: .01em;
@@ -1686,7 +1730,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
 .support-areas__label {
   display: block;
   font-family: var(--subtitle);
-  font-size: .54rem;
+  font-size: .7rem;
   letter-spacing: .2em;
   text-transform: uppercase;
   color: var(--gray-500);
@@ -2030,7 +2074,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
 }
 .contact-overlay__kicker {
   font-family: var(--subtitle);
-  font-size: .55rem;
+  font-size: .72rem;
   letter-spacing: .18em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, .55);
@@ -2193,7 +2237,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
   .nav-links.is-open a {
     padding: 1.15rem 0;
     border-bottom: 1px solid var(--line);
-    font-size: .72rem;
+    font-size: .9rem;
   }
   .nav-links.is-open .nav-cta { margin-top: 1.25rem; justify-content: center; }
   .support-grid { grid-template-columns: 1fr; }
@@ -2205,6 +2249,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
   .contact-grid { grid-template-columns: 1fr; }
   .prose--justify { max-width: none; }
 }
+
 
 @media (max-width: 768px) {
   /* Companies strip — stack on mobile */

@@ -417,3 +417,455 @@ ul,ol{padding:0;list-style:none}
     max-width: 40px;
 }
 .brand-name span { color: var(--red); }
+
+/* ==========================================================================
+   RESPONSIVE FIXES
+   --------------------------------------------------------------------------
+   These overrides sit at the end of the stylesheet so they win specificity
+   ties against earlier rules that repeat the same selectors. They target
+   real breakpoints where the base layout was previously reported to break:
+     ≤ 1024px  — tablet / small laptop
+     ≤ 900px   — nav collapse (already in base sheet — reinforced)
+     ≤ 768px   — narrow tablet / large phone
+     ≤ 640px   — phone portrait
+     ≤ 480px   — small phone
+     ≤ 380px   — micro (Galaxy Fold / iPhone SE 1st gen / Pixel Fold)
+   ========================================================================== */
+
+/* -------------------------------------------------- HEADER — brand tightening */
+/* The logo image must never grow past its `max-width` on any device; explicit
+   width + height auto prevents iOS Safari from rendering it at intrinsic size
+   inside a flex container. */
+.brand {
+  min-width: 0;                     /* allow flex child to shrink */
+  max-width: 60%;
+}
+.brand-name {
+  align-items: center;              /* image + wordmark centred on one baseline */
+  min-width: 0;
+}
+.brand > .brand-name > img {
+  width: 40px;                      /* was max-width only — fix intrinsic-size bug */
+  height: auto;
+  flex: none;
+  object-fit: contain;
+}
+/* Truncate the wordmark gracefully if the header runs out of room */
+.brand-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* -------------------------------------------------- HERO — legal-meta row */
+/* The four-item strip should wrap neatly without forcing horizontal scroll. */
+.legal-meta {
+  gap: .5rem 1.1rem;
+  row-gap: .55rem;
+}
+.legal-meta li {
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+/* -------------------------------------------------- HERO — action buttons */
+@media (max-width: 640px) {
+  .legal-hero-actions {
+    flex-direction: column;
+    gap: .6rem;
+  }
+  .legal-hero-actions .button {
+    width: 100%;
+    justify-content: center;        /* centre label + arrow within full-width button */
+  }
+}
+
+/* -------------------------------------------------- SECTION HEADS */
+/* Prevent the numbered chip from squeezing long H2s on very narrow screens. */
+.legal-section__head {
+  flex-wrap: wrap;
+  row-gap: .5rem;
+}
+@media (max-width: 480px) {
+  .legal-section__head {
+    gap: .55rem;
+  }
+  .legal-section__num {
+    font-size: .58rem;
+    padding: .28rem .45rem;
+  }
+  .legal-section h2 {
+    font-size: clamp(1.15rem, 5.2vw, 1.45rem);
+  }
+  .legal-section h3 {
+    font-size: .82rem;
+    padding-left: .6rem;
+  }
+}
+
+/* -------------------------------------------------- TOC — horizontal scroller */
+/* Add a visible right-edge fade so users on touch devices realise the TOC
+   is horizontally scrollable. The scrollbar itself stays hidden. */
+@media (max-width: 1024px) {
+  .legal-toc nav {                       /* new: fade on the wrapper, not ul */
+    position: relative;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      #000 0,
+      #000 calc(100% - 24px),
+      transparent 100%
+    );
+            mask-image: linear-gradient(
+      to right,
+      #000 0,
+      #000 calc(100% - 24px),
+      transparent 100%
+    );
+  }
+  /* Snappier snap points on touch devices */
+  .legal-toc__list {
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 4px;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .legal-toc__list a {
+    scroll-snap-align: start;
+  }
+  /* On tablets make the chip labels a bit bigger so they're tappable */
+  @media (min-width: 640px) {
+    .legal-toc__list a {
+      font-size: .76rem;
+      padding: .55rem .85rem;
+    }
+  }
+}
+
+/* At ≤ 480px the chips would get too tall — shrink them */
+@media (max-width: 480px) {
+  .legal-toc__list a {
+    font-size: .7rem;
+    padding: .45rem .65rem;
+    gap: .4rem;
+  }
+  .legal-toc__list a .n {
+    font-size: .52rem;
+  }
+  .legal-toc__head {
+    padding-bottom: .55rem;
+    margin-bottom: .55rem;
+  }
+  .legal-toc__title,
+  .legal-toc__count {
+    font-size: .5rem;
+    letter-spacing: .16em;
+  }
+}
+
+/* -------------------------------------------------- CONTACT CARD (Section 16) */
+/* The dt/dd grid already collapses to 1fr at ≤ 640px. Tighten the padding
+   on ≤ 480px so the card doesn't feel oversized on phones. */
+@media (max-width: 480px) {
+  .legal-contact dl > div {
+    padding: .65rem .9rem;
+    gap: .2rem;
+  }
+  .legal-contact__head {
+    padding: .65rem .9rem;
+    font-size: .52rem;
+  }
+  .legal-contact dt {
+    font-size: .5rem;
+  }
+  .legal-contact dd {
+    font-size: .84rem;
+  }
+}
+
+/* -------------------------------------------------- DIVISION GRID (Section 06) */
+/* Give the six divisions a two-column layout on tablets and small desktops
+   where there is enough horizontal room, then collapse back at ≤ 640px. */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .legal-divisions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* -------------------------------------------------- SIGN-OFF */
+/* Tighten the padding on phones so the black card doesn't span 2 screens. */
+@media (max-width: 480px) {
+  .legal-signoff {
+    padding: 1.25rem 1.1rem;
+  }
+  .legal-signoff__brand {
+    font-size: .68rem;
+  }
+  .legal-signoff__line {
+    font-size: .8rem;
+    line-height: 1.7;
+  }
+  .legal-signoff__strap {
+    font-size: .52rem;
+    letter-spacing: .16em;
+  }
+}
+
+/* -------------------------------------------------- FOOTER */
+/* On very narrow phones the footer nav collapses to a single stacked column. */
+@media (max-width: 480px) {
+  .footer-top {
+    gap: 1.5rem;
+  }
+  .footer-links {
+    gap: .5rem 1rem;
+    font-size: .55rem;
+  }
+  .footer-tagline {
+    font-size: .82rem;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .5rem;
+  }
+}
+
+/* -------------------------------------------------- MICRO SCREENS (≤ 380px) */
+/* Galaxy Fold (280×653 effective), iPhone SE 1st gen (320), Pixel Fold outer
+   (approx 320 CSS px). Keep everything on-grid; nothing should scroll
+   horizontally. */
+@media (max-width: 380px) {
+  .wrap {
+    width: min(calc(100% - 24px), var(--max));   /* 12px side gutters instead of 20px */
+  }
+  .brand > .brand-name > img {
+    width: 32px;
+  }
+  .brand-name {
+    font-size: .78rem;
+  }
+  .legal-hero {
+    padding: 40px 0 36px;
+  }
+  .legal-hero h1 {
+    font-size: 1.65rem;
+  }
+  .legal-meta {
+    gap: .4rem .85rem;
+    font-size: .52rem;
+    letter-spacing: .12em;
+  }
+  .legal-meta li::before {
+    width: 4px; height: 4px;
+  }
+  .legal-toc__list a {
+    font-size: .66rem;
+    padding: .4rem .55rem;
+  }
+  .legal-section {
+    padding-top: 1.5rem;
+    padding-bottom: 1.1rem;
+  }
+  .legal-section p,
+  .legal-list li,
+  .legal-list--num li {
+    font-size: .86rem;
+    line-height: 1.7;
+  }
+  .legal-list--num li {
+    padding-left: 1.75rem;
+  }
+  .legal-note {
+    padding: .8rem .9rem;
+    font-size: .84rem;
+  }
+  .legal-division {
+    padding: .85rem .9rem;
+  }
+  .legal-division h4 {
+    font-size: .52rem;
+    letter-spacing: .12em;
+  }
+  .legal-division p {
+    font-size: .8rem;
+  }
+}
+
+/* -------------------------------------------------- VERY WIDE (> 1440px) */
+/* Cap reading width so long-line legal text stays legible. */
+@media (min-width: 1440px) {
+  .legal-body {
+    max-width: 78ch;
+  }
+}
+
+/* -------------------------------------------------- REDUCED MOTION */
+/* (base sheet already handles this — reinforced for the new scroll-snap) */
+@media (prefers-reduced-motion: reduce) {
+  .legal-toc__list {
+    scroll-behavior: auto;
+    scroll-snap-type: none;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE HARDENING — added for tablet / mobile / small screens
+   Appended after existing rules. Desktop (>1024px) is NOT modified.
+   ========================================================================== */
+
+/* ---------------------------------------------- HEADER (tablet + phone) */
+@media (max-width: 1024px) {
+  .nav {
+    gap: .75rem;
+  }
+  /* Let the brand shrink gracefully but not collapse to nothing */
+  .brand {
+    max-width: none;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  /* Back link shouldn't rely on margin-left:auto alone — give it a tappable target */
+  .back-home {
+    flex: 0 0 auto;
+    margin-left: 0;
+    font-size: .85rem;
+    padding: .45rem .55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .back-home {
+    font-size: .78rem;
+    padding: .4rem .45rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .back-home {
+    font-size: .72rem;
+  }
+}
+
+/* ---------------------------------------------- HERO META (wrap cleanly) */
+/* Items must be allowed to shrink & wrap; bullets must not force overflow. */
+.legal-meta li {
+  flex: 1 1 auto;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.legal-meta li::before {
+  flex: none; /* never let the bullet shrink */
+  margin-top: .45em; /* optical alignment when text wraps */
+}
+
+/* ---------------------------------------------- TOC horizontal scroller */
+/* The real fix: the flex item is the <li>, not the <a>. Give it flex:none
+   so chips don't get squeezed in the scroll row. */
+@media (max-width: 1024px) {
+  .legal-toc__list > li {
+    flex: none;
+    min-width: 0;
+  }
+  /* Keep the fade on the nav wrapper — already set, but flatten the nested
+     media query so it lives at this level */
+  .legal-toc__list a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .5rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1024px) {
+  .legal-toc__list a {
+    font-size: .76rem;
+    padding: .55rem .85rem;
+  }
+}
+
+/* ---------------------------------------------- ACTION BUTTONS (tablet) */
+/* Two buttons side-by-side between 640–900px can crowd the headline block.
+   Stack them a little earlier than the existing 640px breakpoint. */
+@media (max-width: 900px) {
+  .legal-hero-actions {
+    flex-wrap: wrap;
+  }
+  .legal-hero-actions .button {
+    flex: 1 1 auto;
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 640px) {
+  .legal-hero-actions {
+    flex-direction: column;
+  }
+  .legal-hero-actions .button {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* ---------------------------------------------- SECTION CONTENT SAFETY */
+/* Long unbroken tokens (URLs, emails, code refs) must never cause
+   horizontal scroll on narrow screens. */
+.legal-section p,
+.legal-section li,
+.legal-division p,
+.legal-note,
+.legal-signoff__line,
+.legal-signoff__strap span {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* ---------------------------------------------- CONTACT CARD */
+.legal-contact dd,
+.legal-contact dd a {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 380px) {
+  .legal-contact dl > div {
+    grid-template-columns: 1fr;
+    gap: .2rem;
+    padding: .6rem .75rem;
+  }
+}
+
+/* ---------------------------------------------- SIGN-OFF */
+@media (max-width: 380px) {
+  .legal-signoff {
+    padding: 1.1rem .9rem;
+  }
+  .legal-signoff__line {
+    font-size: .78rem;
+  }
+}
+
+/* ---------------------------------------------- TO-TOP (safe-area) */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .to-top {
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+    right: calc(14px + env(safe-area-inset-right, 0px));
+  }
+}
+
+/* ---------------------------------------------- NO HORIZONTAL OVERFLOW */
+/* Safety net: any stray wide child will be clipped at the wrap, not the body,
+   so we don't hide real layout bugs across the whole document. */
+@media (max-width: 1024px) {
+  .wrap {
+    overflow-x: clip; /* clip > hidden: no scroll container created */
+  }
+}
+
+/* ---------------------------------------------- PRINT: hide chrome */
+@media print {
+  .back-home,
+  .brand {
+    display: none !important;
+  }
+}
