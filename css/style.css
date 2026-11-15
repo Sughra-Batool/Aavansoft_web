@@ -366,7 +366,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .nav-links a {
   position: relative;
   font-family: var(--subtitle);
-  font-size: .6rem;
+  font-size: .5rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: #5a5a5a;
@@ -403,7 +403,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .menu-toggle {
   display: none;
   font-family: var(--subtitle);
-  font-size: .8rem;
+  font-size: .7rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   padding: .6rem .8rem;
@@ -493,7 +493,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   min-height: 52px;
   padding: clamp(0rem, 1vw, .9rem);
   font-family: var(--subtitle);
-  font-size: clamp(.5rem, 1vw, .65rem);
+  font-size: clamp(.5rem, 0.7vw, .6rem);
   letter-spacing: .12em;
   text-transform: uppercase;
   border: 1px solid var(--ink);
@@ -867,12 +867,12 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 }
 
 .contact-box>.actions>.button--ghost {
-  padding-inline: clamp(1.5rem,5vw,4.3rem);
-  font-size: clamp(0.5rem, 1.35vw, 0.75rem);
+  padding-inline: clamp(1rem,1.5vw,2rem);
+  font-size: clamp(0.5rem, 0.7vw, 0.6rem);
 }
 
 .contact-box>.actions>.button {
-  font-size: clamp(0.5rem, 1.35vw, 0.75rem);
+  font-size: clamp(0.5rem, 0.7vw, 0.6rem);
 }
 /* ==========================================================================
    FOOTER
@@ -881,7 +881,6 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   background: var(--ink-2);
   color: var(--white);
   padding: clamp(1rem, 3vw, 1.5rem) 0 2.5rem;
-  position: relative;
   overflow: hidden;
 }
 .footer::before {
@@ -893,9 +892,9 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 }
 .footer-top {
   display: grid;
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: 1fr 2.5fr;
   justify-content: space-between;
-  gap: clamp(0.6rem, 2vw, 3.5rem);
+  gap: clamp(0.7rem, 2vw, 3.5rem);
   padding-bottom: clamp(0.6rem, 2vw, 2.5rem);
   border-bottom: 1px solid rgba(255, 255, 255, .12);
   position: relative;
@@ -931,10 +930,11 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .footer-links {
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-end;
   gap:.7rem 1.6rem;
   font-family: var(--subtitle);
   font-size: .5rem;
-  letter-spacing: .14em;
+  letter-spacing: .06em;
   text-transform: uppercase;
 }
 
@@ -1260,14 +1260,14 @@ html.js .ux-rows.in > * { opacity: 1; transform: none; }
 
 .data-card__num {
   font-family: var(--subtitle);
-  font-size: clamp(.7rem, 1.35vw, 1rem);
+  font-size: clamp(.7rem, 1.35vw, 0.9rem);
   letter-spacing: .16em;
   color: var(--red);
   line-height: 1;
 }
 .data-card__title {
   font-family: var(--subtitle);
-  font-size: clamp(.7rem, 1.35vw, 1rem);
+  font-size: clamp(.7rem, 1.35vw, 0.9rem);
   color: var(--ink);
   line-height: 1.45;
   letter-spacing: .005em;
@@ -1356,7 +1356,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
 }
 .ux-label h3 {
   font-family: var(--title);
-  font-size: clamp(1.5rem, 3.1vw, 2.4rem);
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
   color: var(--white);
   line-height: 1;
   letter-spacing: -.01em;

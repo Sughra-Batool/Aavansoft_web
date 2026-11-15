@@ -82,7 +82,7 @@
   })();
 
   /* ============================================================
-     TOC SCROLL SPY
+     TOC SCROLL SPY (Desktop only)
      ============================================================ */
   (function () {
     var toc = document.getElementById('legalToc');
@@ -98,25 +98,12 @@
     var sections = Object.keys(map)
       .map(function (id) { return document.getElementById(id); })
       .filter(Boolean);
-
     if (!sections.length) return;
 
     function activate(id) {
       links.forEach(function (a) { a.classList.remove('is-active'); });
       var a = map[id];
-      if (a) {
-        a.classList.add('is-active');
-        /* Keep active chip visible in the horizontal mobile TOC */
-        if (window.innerWidth <= 1024 && toc.scrollWidth > toc.clientWidth) {
-          var parent = a.parentElement;
-          if (parent) {
-            var left = parent.offsetLeft - 12;
-            if (Math.abs(toc.scrollLeft - left) > 40) {
-              toc.scrollTo({ left: left, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
-            }
-          }
-        }
-      }
+      if (a) a.classList.add('is-active');
     }
 
     var io = new IntersectionObserver(function (entries) {
@@ -127,11 +114,8 @@
 
     sections.forEach(function (s) { io.observe(s); });
 
-    /* Fallback: pick the top-most visible section on short pages */
     window.addEventListener('scroll', function () {
-      var bestId = null;
-      var bestTop = Infinity;
-      var offset = 120;
+      var bestId = null, bestTop = Infinity, offset = 120;
       sections.forEach(function (s) {
         var r = s.getBoundingClientRect();
         if (r.top <= offset && r.top < bestTop) {
@@ -139,11 +123,31 @@
           bestId = s.id;
         }
       });
-      if (!bestId && sections.length) {
-        bestId = sections[0].id;
-      }
+      if (!bestId && sections.length) bestId = sections[0].id;
       if (bestId) activate(bestId);
     }, { passive: true });
+  })();
+
+  /* ============================================================
+     MOBILE SECTION ACCORDIONS (≤1024px)
+     ============================================================ */
+  (function () {
+    // Only run if we are in mobile/tablet view
+    if (window.innerWidth > 1024) return;
+
+    var sections = document.querySelectorAll('.legal-section');
+    
+    sections.forEach(function (section) {
+      var head = section.querySelector('.legal-section__head');
+      if (!head) return;
+
+      head.addEventListener('click', function () {
+        var isOpen = section.getAttribute('data-open') === 'true';
+        
+        // Toggle ONLY the clicked section (allows multiple to be open)
+        section.setAttribute('data-open', String(!isOpen));
+      });
+    });
   })();
 
 })();

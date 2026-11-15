@@ -1,0 +1,32 @@
+# https://www.aavansoft.co.uk/robots.txt
+
+User-agent: *
+Allow: /
+
+# Explicitly allow AI crawlers for AEO/GEO visibility
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Sitemap
+Sitemap: https://www.aavansoft.co.uk/sitemap.xml
