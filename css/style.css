@@ -167,7 +167,7 @@ ul { padding: 0; list-style: none; }
 /* ==========================================================================
    LAYOUT
    ========================================================================== */
-.wrap {
+.wrap, .hero-meta {
   width: min(calc(100% - 40px), var(--max));
   margin-inline: auto;
   position: relative;
@@ -436,10 +436,12 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .hero-grid {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) minmax(280px, .8fr);
-  gap: clamp(1.5rem, 3.5vw, 2.5rem);
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
   align-items: center;
   z-index: 1;
+  padding-block-end: 1rem;
+  border-block-end: 1px solid var(--gray-100);
 }
 
 .hero h1 {
@@ -543,13 +545,13 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .section--gray .button--ghost { border-color: #d0d0d3; }
 
 .hero-meta {
+  position: relative;
   grid-column: 1/-1;
   display: flex;
   flex-wrap: wrap;
   gap: .95rem;
-  margin-top: 2.25rem;
   font-family: var(--subtitle);
-  font-size: .65rem;
+  font-size: .75rem;
   text-transform: uppercase;
   color: var(--gray-500);
   padding-top: 1.5rem;
@@ -2202,7 +2204,6 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
    ========================================================================== */
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; }
-  .hero-meta {flex-wrap: nowrap;}
   .hero-visual { max-width: 440px; margin-inline: auto; order: -1; min-height: 240px; }
   .section-head { grid-template-columns: 1fr; gap: .35rem; }
   .insights-grid { grid-template-columns: 1fr; gap: clamp(1.5rem, 4vw, 2.5rem); }
