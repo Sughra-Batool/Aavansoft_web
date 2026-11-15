@@ -551,7 +551,8 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
   flex-wrap: wrap;
   gap:.65rem 1.4rem;
   font-family: var(--subtitle);
-  font-size: .75rem;
+  font-size: clamp(0.65rem, 1.25vw, 0.75rem);
+  letter-spacing: 0.07rem;
   text-transform: uppercase;
   color: var(--gray-500);
   padding-top: 1.5rem;
