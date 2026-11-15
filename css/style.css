@@ -865,11 +865,11 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 
 .contact-box>.actions>.button--ghost {
   padding-inline: clamp(1.5rem,5vw,4.3rem);
-  font-size: clamp(0.75rem, 1.35vw, 1rem);
+  font-size: clamp(0.65rem, 1.35vw, 0.75rem);
 }
 
 .contact-box>.actions>.button {
-  font-size: clamp(0.75rem, 1.35vw, 1rem);
+  font-size: clamp(0.65rem, 1.35vw, 0.75rem);
 }
 /* ==========================================================================
    FOOTER
