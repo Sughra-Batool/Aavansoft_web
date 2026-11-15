@@ -543,6 +543,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .section--gray .button--ghost { border-color: #d0d0d3; }
 
 .hero-meta {
+  grid-column: 1/-1;
   display: flex;
   flex-wrap: wrap;
   gap: .95rem;
@@ -556,6 +557,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 }
 .hero-meta li {
   display: inline-flex;
+  flex-wrap: nowrap;
   align-items: center;
   gap: .55rem;
   opacity: 0;
@@ -2200,6 +2202,7 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
    ========================================================================== */
 @media (max-width: 1024px) {
   .hero-grid { grid-template-columns: 1fr; }
+  .hero-meta {flex-wrap: nowrap;}
   .hero-visual { max-width: 440px; margin-inline: auto; order: -1; min-height: 240px; }
   .section-head { grid-template-columns: 1fr; gap: .35rem; }
   .insights-grid { grid-template-columns: 1fr; gap: clamp(1.5rem, 4vw, 2.5rem); }
