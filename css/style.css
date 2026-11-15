@@ -436,7 +436,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .hero-grid {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+  grid-template-columns: minmax(0, 1.6fr) minmax(280px, .8fr);
   gap: clamp(1.5rem, 4vw, 3.5rem);
   align-items: center;
   z-index: 1;
@@ -545,11 +545,10 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .hero-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: .65rem 1.4rem;
+  gap: .95rem;
   margin-top: 2.25rem;
   font-family: var(--subtitle);
-  font-size: .6rem;
-  letter-spacing: .14em;
+  font-size: .65rem;
   text-transform: uppercase;
   color: var(--gray-500);
   padding-top: 1.5rem;
