@@ -367,7 +367,7 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 .nav-links a {
   position: relative;
   font-family: var(--subtitle);
-  font-size: .5rem;
+  font-size: .6rem;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: #5a5a5a;
@@ -691,6 +691,10 @@ h3, .card h3, .cap-card h3, .division h3, .faq summary {
 }
 .section-head .lead { margin-top: 1.15rem; }
 .section-head .eyebrow { margin-top: .8rem; }
+.section-head .eyebrow::before {
+  align-self: flex-start;
+  margin-block-start: 0.5rem;
+}
 
 /* ==========================================================================
    LEGACY CARD
@@ -1001,7 +1005,7 @@ html.js .ux-rows.in > * { opacity: 1; transform: none; }
   gap: clamp(2rem, 5vw, 4.5rem);
   align-items: start;
 }
-.insights-head { position: relative; padding-top: .25rem; }
+.insights-head { position: relative; padding-top: .25rem;}
 .insights-head .section-no {
   font-size: clamp(2.4rem, 5vw, 3.6rem);
   letter-spacing: .06em;
@@ -1031,7 +1035,7 @@ html.js .ux-rows.in > * { opacity: 1; transform: none; }
   text-transform: uppercase;
   color: var(--gray-500);
 }
-.insights-body { padding-top: .35rem; }
+.insights-body { padding-top: .35rem; align-self:center;}
 .insights-body .lead { max-width: none; }
 .insights-body p + p { margin-top: 1rem; }
 .insights-body p {
@@ -1041,6 +1045,15 @@ html.js .ux-rows.in > * { opacity: 1; transform: none; }
   line-height: 1.78;
   color: #3c3c3c;
   max-width: 64ch;
+}
+.insights-year {
+  display: inline-flex;
+  width: fit-content;
+  padding: clamp(1rem, 1.4vw, 1.15rem) clamp(1rem, 1.4vw, 1.5rem);
+  background-color: var(--red);
+  color: var(--gray);
+  font-family: var(--subtitle);
+  font-size: clamp(1.65rem, 3.4vw, 2rem);
 }
 .insights-closing {
   margin-top: clamp(2.5rem, 5vw, 4rem);
