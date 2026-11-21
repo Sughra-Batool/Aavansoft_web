@@ -40,6 +40,7 @@
       gtag('js', new Date());
       gtag('config', 'G-3875XMHPC2');
     </script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
     <!-- Structured data: Organization · WebSite · WebPage · Breadcrumb · ProfessionalService · Service catalog · FAQ -->
     <script type="application/ld+json">
@@ -1019,6 +1020,8 @@
 
           <p class="contact-form__note" id="cfFormNote" role="status" aria-live="polite"></p>
 
+          <!-- Inside your form, right above the buttons -->
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAGLYnoMMF2W2-0kZ"></div>
           <div class="contact-form__actions">
             <button type="button" class="button button--ghost" data-close-contact>Cancel</button>
             <button type="submit" class="button">Send enquiry <span class="arrow" aria-hidden="true">↗</span></button>

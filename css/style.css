@@ -2210,6 +2210,10 @@ html.js .data-interactive.in .data-visual { opacity: 1; transform: translateY(0)
   border-top: 1px solid var(--line);
 }
 .contact-form__actions--center { justify-content: center; }
+.cf-turnstile {
+  display: inline-flex;
+  justify-content: center;
+}
 
 .contact-overlay__panel--success { max-width: 560px; }
 .contact-success { padding: 48px 30px; text-align: center; }
